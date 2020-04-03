@@ -1,7 +1,12 @@
+html {
+  --lightControl-bg: rgba(0, 0, 0, 0.3);
+  --lightControl-text: #FFF;
+  --darkControl-bg: rgba(0, 0, 255, 0.3);
+  --darkControl-text: #FFF;
+}
 * {
-  --control-bg: rgb(100,100,100);
-  --control-bg-transparent: rgba(0, 0, 0, 0.3);
-  --control-text: #FFF;
+  --control-bg: var(--lightControl-bg);
+  --control-text: var(--lightControl-text);
 }
 html, body {
   margin: 0;
@@ -27,7 +32,6 @@ html, body {
 #topControls {
   padding: 5px 5px;
   background: var(--control-bg);
-  background: var(--control-bg-transparent);
   color: var(--control-text);
   border: 1px solid #000;
   border-radius: 10px;
@@ -42,7 +46,6 @@ html, body {
 #topControls option {color: black;}
 #leftControls, #rightControls {
   background: var(--control-bg);
-  background: var(--control-bg-transparent);
   border: 1px solid #000;
   border-radius: 10px; 
 }
@@ -51,7 +54,8 @@ html, body {
   display: block;
 }
 #micButton {
-  background: black;
+  background: var(--control-bg);
   border-radius: 100%;
   padding: 10px;
+  border: 1px solid black;
 }
