@@ -1,0 +1,57 @@
+* {
+  --control-bg: rgb(100,100,100);
+  --control-bg-transparent: rgba(0, 0, 0, 0.3);
+  --control-text: #FFF;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
+#bottomControls, #topControls, #leftControls, #rightControls {
+  margin: 10px;
+}
+#bottomControls, #topControls {
+  display: flex;
+  flex-direction: row;
+}
+#leftControls, #rightControls {
+  display: flex;
+  flex-direction: column;
+}
+#topControls {
+  padding: 5px 5px;
+  background: var(--control-bg);
+  background: var(--control-bg-transparent);
+  color: var(--control-text);
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+#topControls select {
+  background: rgba(0, 0, 0, 0);
+  color: var(--control-text);
+  appearance: none;
+  border: none;
+  outline: none;
+}
+#topControls option {color: black;}
+#leftControls, #rightControls {
+  background: var(--control-bg);
+  background: var(--control-bg-transparent);
+  border: 1px solid #000;
+  border-radius: 10px; 
+}
+#leftControls img, #rightControls img {
+  margin: 15px 10px;
+  display: block;
+}
+#micButton {
+  background: black;
+  border-radius: 100%;
+  padding: 10px;
+}
