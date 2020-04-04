@@ -6,13 +6,18 @@ class SettingsScreen extends Component {
     hide() {
         if(this.doHide)
         document.getElementById("settingsScreen").style.display = "none";
-      }
+    }
+    changeMapTheme(theme) {
+        this.props.mapComponent.map.setMapTypeId(theme);
+    }
     render() {
         this.hide = this.hide.bind(this);
         return (
             <div id="settingsScreen" onClick={this.hide}>
                 <div id="settingsScreenOverlay" onMouseEnter={() => this.doHide = false} onMouseLeave={() => this.doHide = true}>
-                    <h1 style={{align: "center"}}>No settings here...</h1>
+                    <div style={{width: "100%", textAlign: "center"}}><h1>Settings</h1></div>
+                    <button class="btn btn-light" onClick={() => this.changeMapTheme('light')}>Light Theme</button>
+                    <button class="btn btn-dark" onClick={() => this.changeMapTheme('dark')}>Dark Theme</button>
                 </div>
             </div>
         )

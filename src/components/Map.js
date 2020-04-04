@@ -10,7 +10,7 @@ import iconAnnouncementRed from '../icons/announcement-red.svg';
 import iconBroadcasting from '../icons/user_broadcasting.svg';
 import iconSilent from '../icons/user_silent.svg';
 //#endregion
-import TopControls from './controls/TopControls';
+import TopRightControls from './controls/TopRightControls';
 import BottomControls from './controls/BottomControls';
 import LeftControls from './controls/LeftControls';
 import RightControls from './controls/RightControls';
@@ -44,6 +44,7 @@ class Map extends Component {
   currentChannel = 0;
   lastLocation = {lat: -33.91722, lng: 151.23064}
   radius;
+  apiKey = 'AIzaSyALapSLwcFOvethKmU1BFyera1hAhaJ1Kc'
   icons = {
     broadcasting: {
       name: 'Broadcasting user',
@@ -332,7 +333,6 @@ class Map extends Component {
       zoomControl: true,
       fullscreenControl: false,
       scaleControl: true,
-      mapTypeControl: true,
       mapTypeControlOptions: {
         mapTypeIds: ['light',  'dark']
       },
@@ -358,8 +358,8 @@ class Map extends Component {
     var bottomControls = document.getElementById('bottomControls');
     this.map.controls[window.google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControls);
     
-    var topControls = document.getElementById('topControls');
-    this.map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(topControls);
+    var topRightControls = document.getElementById('topRightControls');
+    this.map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(topRightControls);
     
     var leftControls = document.getElementById('leftControls');
     this.map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(leftControls);
@@ -372,7 +372,7 @@ class Map extends Component {
   showMap() {
     window.initMap = this.initMap.bind(this);
     this.mapScript = document.createElement('script')
-    this.mapScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBE6XOeqFdxBYne49mBI-_4lypZQam_HO4&callback=initMap'
+    this.mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`
     document.body.append(this.mapScript);
   }
   //#endregion Google Maps init
@@ -425,11 +425,12 @@ class Map extends Component {
   }
   render() {
     this.initMap = this.initMap.bind(this);
+    this.showMap = this.showMap.bind(this);
     if(!this.mapScript) this.showMap()
     this.onMapTypeIdChanged = this.onMapTypeIdChanged.bind(this);
     return (
       <div>
-        <TopControls mapComponent={this}/>
+        <TopRightControls mapComponent={this}/>
         <BottomControls mapComponent={this}/>
         <LeftControls mapComponent={this}/>
         <RightControls mapComponent={this}/>
