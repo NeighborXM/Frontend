@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import './Map.css';
 //#region Icon imports
-import iconAlertGreen from '../icons/alert-green.svg';
-import iconAlertRed from '../icons/alert-red.svg';
-import iconAlertYellow from '../icons/alert-yellow.svg';
-import iconAnnouncementGreen from '../icons/announcement-green.svg';
-import iconAnnouncementYellow from '../icons/announcement-yellow.svg';
-import iconAnnouncementRed from '../icons/announcement-red.svg';
 import iconBroadcasting from '../icons/user_broadcasting.svg';
 import iconSilent from '../icons/user_silent.svg';
+import iconHandHoldingMedical from '../icons/hand-holding-medical.svg'
+import iconBullhorn from '../icons/bullhorn.svg';
+import iconCalendarCheck from '../icons/calendar-check.svg';
+import iconCircle from '../icons/circle.svg';
+import iconExclamation from '../icons/exclamation.svg';
+import iconExclamationCircle from '../icons/exclamation-circle.svg';
+import iconExclamationTriangle from '../icons/exclamation-triangle.svg';
 //#endregion
 import TopRightControls from './controls/TopRightControls';
 import BottomControls from './controls/BottomControls';
@@ -54,30 +55,34 @@ class Map extends Component {
       name: 'Silent user',
       icon: iconSilent
     },
-    alertGreen: {
-      name: 'Green Alert',
-      icon: iconAlertGreen
+    circle: {
+      name: "'I'm fine' status update",
+      icon: iconCircle
     },
-    alertYellow: {
-      name: 'Yellow alert',
-      icon: iconAlertYellow
+    exclamation: {
+      name: "'I need help' status update",
+      icon: iconExclamation
     },
-    alertRed: {
-      name: 'Red alert',
-      icon: iconAlertRed
+    exclamation_circle: {
+      name: "'I need help soon' status update",
+      icon: iconExclamationCircle
     },
-    announcementGreen: {
-      name: 'Green announcement',
-      icon: iconAnnouncementGreen
+    exclamation_triangle: {
+      name: "'I need help now' status update",
+      icon: iconExclamationTriangle
     },
-    announcementYellow: {
-      name: 'Yellow announcement',
-      icon: iconAnnouncementYellow
+    hand_holding_medical: {
+      name: 'Medical announcement',
+      icon: iconHandHoldingMedical
     },
-    announcementRed: {
-      name: 'Red Announcement',
-      icon: iconAnnouncementRed
+    bullhorn: {
+      name: 'Local Announcement',
+      icon: iconBullhorn
     },
+    calendar_check: {
+      name: 'Local Event',
+      icon: iconCalendarCheck
+    }
   };
   
   //#region Google Maps init
@@ -343,7 +348,7 @@ class Map extends Component {
     
     this.radius = new window.google.maps.Circle({
       strokeColor: '#000000',
-      strokeOpacity: 0.8,
+      strokeOpacity: 0.0,
       strokeWeight: 2,
       fillColor: '#000000',
       fillOpacity: 0.35,
@@ -379,20 +384,6 @@ class Map extends Component {
   
   
   onMapTypeIdChanged() {
-    let root = document.documentElement;
-    switch(this.map.getMapTypeId()) {
-      case 'light':
-        root.style.setProperty('--control-bg', 'var(--lightControl-bg)');
-        root.style.setProperty('--control-text', 'var(--lightControl-text)');
-        root.style.setProperty('--control-outline', 'var(--lightControl-outline)');
-        break;
-      case 'dark':
-        root.style.setProperty('--control-bg', 'var(--darkControl-bg)');
-        root.style.setProperty('--control-text', 'var(--darkControl-text)');
-        root.style.setProperty('--control-outline', 'var(--darkControl-outline)');
-        break;
-      default: break;
-    }
   }
 
   pushMarkers(features) {

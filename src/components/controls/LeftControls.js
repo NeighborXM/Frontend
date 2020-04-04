@@ -1,15 +1,26 @@
 import React, {Component} from 'react';
-import iconAlertGreen from '../../icons/alert-green.svg';
-import iconAlertRed from '../../icons/alert-red.svg';
-import iconAlertYellow from '../../icons/alert-yellow.svg';
 
 class LeftControls extends Component {
     render() {
         return (
         <div id="leftControls">
-          <img onClick={() => this.props.mapComponent.dropLogo("alertGreen")} alt="Drop positive alert" width="24px" height="24px" src={iconAlertGreen}/>
-          <img onClick={() => this.props.mapComponent.dropLogo("alertYellow")} alt="Drop neutral alert" width="24px" height="24px" src={iconAlertYellow}/>
-          <img onClick={() => this.props.mapComponent.dropLogo("alertRed")} alt="Drop negative alert" width="24px" height="24px" src={iconAlertRed}/>
+          Click an icon to drop it on the map.<br/>
+          <span className="controlIcon circle">
+            <i className="fas fa-circle" onClick={() => this.props.mapComponent.dropLogo("circle")}></i>
+          </span><br/>
+          I'm ok
+          <span className="controlIcon exclamation">
+            <i className="fas fa-exclamation" onClick={() => this.props.mapComponent.dropLogo("exclamation")}></i>
+          </span><br/>
+          I need help
+          <span className="controlIcon exclamation-circle">
+            <i className="fas fa-exclamation-circle" onClick={() => this.props.mapComponent.dropLogo("exclamation_circle")}></i>
+          </span><br/>
+          I need help soon
+          <span className="controlIcon exclamation-triangle">
+            <i className="fas fa-exclamation-triangle" onClick={() => this.props.mapComponent.dropLogo("exclamation_triangle")}></i>
+          </span><br/>
+          I need help now
         </div>
         )
     }

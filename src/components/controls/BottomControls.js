@@ -22,14 +22,14 @@ class BottomControls extends Component {
         this.onChatButtonClick = this.onChatButtonClick.bind(this);
         return(
         <div id="bottomControls">
-          <div id="chatButton" onClick={this.onChatButtonClick}>
-            <img alt="Enter chat" width="48px" height="48px" src={iconChat}/>
+          <div id="chatButton" class="bottomControlIcon" onClick={this.onChatButtonClick}>
+            <i className="fas fa-comment-dots"></i>
           </div>
           <div id="micButton" onClick={this.onMicButtonClick}>
             <img className="micOff" alt="Microphone is off" width="48px" height="48px" src={iconMicOff}/>
           </div>
-          <div id="settingsButton" onClick={this.onSettingsButtonClick}>
-            <img alt="Settings" width="48px" height="48px" src={iconSettings}/>
+          <div id="settingsButton" class="bottomControlIcon" onClick={this.onSettingsButtonClick}>
+          <i className="fas fa-cogs"></i>
           </div>
         </div>
         )
