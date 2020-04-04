@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
-import './Map.css'
-import iconAlertGreen from './icons/alert-green.svg';
-import iconAlertRed from './icons/alert-red.svg';
-import iconAlertYellow from './icons/alert-yellow.svg';
-import iconAnnouncementGreen from './icons/announcement-green.svg';
-import iconAnnouncementYellow from './icons/announcement-yellow.svg';
-import iconAnnouncementRed from './icons/announcement-red.svg';
-import iconMicOff from './icons/mic_off-24px.svg';
-import iconMicOn from './icons/mic-24px.svg';
-import iconBroadcasting from './icons/voice_over_on-24px.svg';
-import iconSilent from './icons/record_voice_over-24px.svg';
+import './Map.css';
+//#region Icon imports
+import iconAlertGreen from '../icons/alert-green.svg';
+import iconAlertRed from '../icons/alert-red.svg';
+import iconAlertYellow from '../icons/alert-yellow.svg';
+import iconAnnouncementGreen from '../icons/announcement-green.svg';
+import iconAnnouncementYellow from '../icons/announcement-yellow.svg';
+import iconAnnouncementRed from '../icons/announcement-red.svg';
+import iconBroadcasting from '../icons/user_broadcasting.svg';
+import iconSilent from '../icons/user_silent.svg';
+//#endregion
+import TopControls from './controls/TopControls';
+import BottomControls from './controls/BottomControls';
+import LeftControls from './controls/LeftControls';
+import RightControls from './controls/RightControls';
+import ChatScreen from './ChatScreen';
+import SettingsScreen from './SettingsScreen';
 
-class User {
-  marker;
-}
 
 class Channel {
   /**
@@ -29,14 +32,17 @@ class Channel {
   }
 }
 
+class User {
+  marker;
+}
 class Map extends Component {
   /**
    * @type window.google.maps.Map
    */
   map;
-  markers = [];
-  channels = [new Channel('Public Channel')];
+  channels = [new Channel('Public Channel'), new Channel('YMCA Members')];
   currentChannel = 0;
+  lastLocation = {lat: -33.91722, lng: 151.23064}
   radius;
   icons = {
     broadcasting: {
@@ -74,7 +80,7 @@ class Map extends Component {
   };
   
   //#region Google Maps init
-  initMap() {
+  async initMap() {
     var lightMapType = new window.google.maps.StyledMapType(
       [
         {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
@@ -320,50 +326,40 @@ class Map extends Component {
 
     this.map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 16,
-      center: new window.google.maps.LatLng(-33.91722, 151.23064),
-      mapTypeId: 'roadmap',
+      center: this.lastLocation,
+      mapTypeId: 'dark',
       disableDefaultUI: true,
       zoomControl: true,
-      fullscreenControl: true,
+      fullscreenControl: false,
       scaleControl: true,
-      mapTypeControl: false,
+      mapTypeControl: true,
       mapTypeControlOptions: {
         mapTypeIds: ['light',  'dark']
       },
     });
     this.map.mapTypes.set('light', lightMapType);
     this.map.mapTypes.set('dark', darkMapType);
-    this.map.setMapTypeId('dark');
     this.map.addListener('maptypeid_changed', this.onMapTypeIdChanged)
-    navigator.geolocation.getCurrentPosition(
-      function(location) {
-        this.pushMarkers([
-          {
-            position: {lat: location.coords.latitude + 0.005, lng: location.coords.longitude + 0.005},
-            icon: 'broadcasting'
-          }
-        ]);
-        this.map.setCenter({lat: location.coords.latitude, lng: location.coords.longitude})
-        this.radius = new window.google.maps.Circle({
-          strokeColor: '#000000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#000000',
-          fillOpacity: 0.35,
-          map: this.map,
-          center: {lat: location.coords.latitude, lng: location.coords.longitude},
-          radius: 1000
-        });
-      }.bind(this),
-      function(err) {console.error(err)},
-      {enableHighAccuracy: true}
-      ); 
+    
+    this.radius = new window.google.maps.Circle({
+      strokeColor: '#000000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#000000',
+      fillOpacity: 0.35,
+      map: this.map,
+      center: this.lastLocation,
+      radius: 1000,
+      dragable: true,
+      editable: true
+    });
+
     //#region Push controls to map
     var bottomControls = document.getElementById('bottomControls');
     this.map.controls[window.google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControls);
     
     var topControls = document.getElementById('topControls');
-    this.map.controls[window.google.maps.ControlPosition.TOP_CENTER].push(topControls);
+    this.map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(topControls);
     
     var leftControls = document.getElementById('leftControls');
     this.map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(leftControls);
@@ -373,7 +369,6 @@ class Map extends Component {
     //#endregion
   }
   
-  
   showMap() {
     window.initMap = this.initMap.bind(this);
     this.mapScript = document.createElement('script')
@@ -382,21 +377,21 @@ class Map extends Component {
   }
   //#endregion Google Maps init
   
+  
   onMapTypeIdChanged() {
     let root = document.documentElement;
     switch(this.map.getMapTypeId()) {
       case 'light':
-        console.log('Light')
         root.style.setProperty('--control-bg', 'var(--lightControl-bg)');
-        root.style.setProperty('--control-bg-transparent', '--lightControl-bg-transparent');
         root.style.setProperty('--control-text', 'var(--lightControl-text)');
+        root.style.setProperty('--control-outline', 'var(--lightControl-outline)');
         break;
       case 'dark':
-        console.log('Dark')
         root.style.setProperty('--control-bg', 'var(--darkControl-bg)');
-        root.style.setProperty('--control-bg-transparent', 'var(--darkControl-bg-transparent)');
         root.style.setProperty('--control-text', 'var(--darkControl-text)');
+        root.style.setProperty('--control-outline', 'var(--darkControl-outline)');
         break;
+      default: break;
     }
   }
 
@@ -413,63 +408,33 @@ class Map extends Component {
     }
   }
 
-  getChannelOptions() {
-    let output = [];
-    this.channels.forEach((channel, i) => output.push(<option key={i}>{channel.name}</option>))
-    return output;
-  }
-
-  //#region Event handlers
   onChannelSelectorChange(event) {
     this.users.map(user => {
       user.marker.setMap(null);
+      return null;
     })
   }
-  onMicButtonClick(event) {
-    var img = document.querySelector('#micButton img');
-    img.src = img.className==="micOff" ? iconMicOn : iconMicOff;
-    img.className = img.className==="micOff" ?  "micOn":"micOff";
-  }
-  //#endregion
+
   dropLogo(type) {
-    navigator.geolocation.getCurrentPosition(
-      function(location) {
         this.pushMarkers([
           {
-            position: {lat: location.coords.latitude, lng: location.coords.longitude},
+            position: this.radius.getCenter(),
             icon: type
           }
         ]);
-      }.bind(this),
-      function(err) {console.error(err)},
-      {enableHighAccuracy: true}
-      );
   }
   render() {
-    if(!this.mapScript) this.showMap()
     this.initMap = this.initMap.bind(this);
+    if(!this.mapScript) this.showMap()
     this.onMapTypeIdChanged = this.onMapTypeIdChanged.bind(this);
     return (
       <div>
-        <div id="topControls">
-          <select onChange={this.onChannelSelectorChange} id="channelSelector">
-            {this.getChannelOptions()}
-          </select>
-        </div>
-        <div id="bottomControls">
-          <div id="micButton" onClick={this.onMicButtonClick}>
-            <img className="micOff" alt="Microphone is off" width="48px" height="48px" src={iconMicOff}/></div>
-          </div>
-        <div id="leftControls">
-          <img onClick={() => this.dropLogo("alertGreen")} alt="Drop positive alert" width="24px" height="24px" src={iconAlertGreen}/>
-          <img onClick={() => this.dropLogo("alertYellow")} alt="Drop neutral alert" width="24px" height="24px" src={iconAlertYellow}/>
-          <img onClick={() => this.dropLogo("alertRed")} alt="Drop negative alert" width="24px" height="24px" src={iconAlertRed}/>
-        </div>
-        <div id="rightControls">
-          <img onClick={() => this.dropLogo("announcementGreen")} alt="Drop positive announcement" width="24px" height="24px" src={iconAnnouncementGreen}/>
-          <img onClick={() => this.dropLogo("announcementYellow")} alt="Drop neutral announcement" width="24px" height="24px" src={iconAnnouncementYellow}/>
-          <img onClick={() => this.dropLogo("announcementRed")} alt="Drop negative announcement" width="24px" height="24px" src={iconAnnouncementRed}/>
-        </div>
+        <TopControls mapComponent={this}/>
+        <BottomControls mapComponent={this}/>
+        <LeftControls mapComponent={this}/>
+        <RightControls mapComponent={this}/>
+        <ChatScreen mapComponent={this}/>
+        <SettingsScreen mapComponent={this}/>
       </div>
     );
   }

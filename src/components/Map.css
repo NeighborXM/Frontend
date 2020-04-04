@@ -1,12 +1,13 @@
-html {
-  --lightControl-bg: rgba(0, 0, 0, 0.3);
-  --lightControl-text: #FFF;
-  --darkControl-bg: rgba(0, 0, 255, 0.3);
+:root {
+  --lightControl-bg: rgba(200, 200, 200, 0.8);
+  --lightControl-text: #000;
+  --lightControl-outline: #000;
+  --darkControl-bg: rgba(0, 0, 0, 0.5);
   --darkControl-text: #FFF;
-}
-* {
-  --control-bg: var(--lightControl-bg);
-  --control-text: var(--lightControl-text);
+  --darkControl-outline: #999;
+  --control-bg: var(--darkControl-bg);
+  --control-text: var(--darkControl-text);
+  --control-outline: var(--darkControl-outline);
 }
 html, body {
   margin: 0;
@@ -18,22 +19,30 @@ html, body {
   height: 100%;
   width: 100%;
 }
-#bottomControls, #topControls, #leftControls, #rightControls {
+#topControls, #bottomControls, #leftControls, #rightControls {
   margin: 10px;
 }
-#bottomControls, #topControls {
+#topControls, #leftControls, #rightControls {
+  border: 1px solid var(--control-outline);
+}
+#topControls, #bottomControls {
   display: flex;
   flex-direction: row;
 }
 #leftControls, #rightControls {
   display: flex;
   flex-direction: column;
+  background: var(--control-bg);
+  border-radius: 10px; 
+}
+#leftControls img, #rightControls img {
+  margin: 15px 10px;
+  display: block;
 }
 #topControls {
   padding: 5px 5px;
   background: var(--control-bg);
   color: var(--control-text);
-  border: 1px solid #000;
   border-radius: 10px;
 }
 #topControls select {
@@ -43,19 +52,34 @@ html, body {
   border: none;
   outline: none;
 }
-#topControls option {color: black;}
-#leftControls, #rightControls {
+#topControls option {
+  color: var(--control-text);
   background: var(--control-bg);
-  border: 1px solid #000;
-  border-radius: 10px; 
 }
-#leftControls img, #rightControls img {
-  margin: 15px 10px;
-  display: block;
-}
-#micButton {
+#bottomControls div {
+  border: 1px solid var(--control-outline);
   background: var(--control-bg);
   border-radius: 100%;
   padding: 10px;
+  margin: 5px
+}
+#chatScreen, #settingsScreen {
+  display: none;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#chatScreenOverlay, #settingsScreenOverlay {
+  padding: 10px;
+  color: var(--control-text);
+  background-color: var(--control-bg);
+  border-radius: 10px;
   border: 1px solid black;
+  height: fit-content;
 }
