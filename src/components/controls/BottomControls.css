@@ -1,0 +1,21 @@
+#bottomControls {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    background: var(--dark-blue);
+    border-radius: 40px;
+    align-items: center;
+}
+#bottomControls div {
+    padding: 10px;
+}
+.bottomControlIcon img {
+    width: 48px;
+    height: 48px;
+    margin: 10px;
+}
+.bottomControlIcon {
+    font-size: 48px;
+    color: var(--light-blue);
+}

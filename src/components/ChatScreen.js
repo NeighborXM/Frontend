@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './ChatScreen.css';
 
 class ChatScreen extends Component {
 

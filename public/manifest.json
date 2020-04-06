@@ -1,6 +1,6 @@
 {
   "short_name": "Neighbor XM",
-  "name": "Connecting neighbors to neighbors",
+  "name": "Being a good neighbor made simple",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1fa9c2",
+  "background_color": "#0d415f"
 }

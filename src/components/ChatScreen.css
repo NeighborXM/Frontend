@@ -1,0 +1,19 @@
+#chatScreen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+#chatScreenOverlay {
+    padding: 10px;
+    color: var(--control-text);
+    background-color: var(--dark-blue);
+    border-radius: 10px;
+    border: 1px solid black;
+    height: fit-content;
+  }

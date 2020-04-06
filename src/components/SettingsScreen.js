@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './SettingsScreen.css';
 
 class SettingsScreen extends Component {
 

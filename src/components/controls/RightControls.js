@@ -1,21 +1,17 @@
 import React, {Component} from 'react';
+import Icons from '../../icons';
+import './RightControls.css';
 
 class RightControls extends Component {
     render() {
         return (
         <div id="rightControls">
           Click an icon to drop it on the map.<br/>
-          <span className="controlIcon">
-            <i className="fas fa-hand-holding-medical" onClick={() => this.props.mapComponent.dropLogo("hand_holding_medical")}></i>
-          </span><br/>
+          <img alt="Medical updates" onClick={() => this.props.mapComponent.dropLogo("handHoldingMedical")} src={Icons.handHoldingMedical}/>
           Medical Updates
-          <span className="controlIcon">
-            <i className="fas fa-bullhorn" onClick={() => this.props.mapComponent.dropLogo("bullhorn")}></i>
-          </span><br/>
+          <img alt="Local announcements" onClick={() => this.props.mapComponent.dropLogo("bullhorn")} src={Icons.bullhorn}/>
           Local Announcements
-          <span className="controlIcon">
-            <i className="fas fa-calendar-check" onClick={() => this.props.mapComponent.dropLogo("calendar_check")}></i>
-          </span><br/>
+          <img alt="Local events" onClick={() => this.props.mapComponent.dropLogo("calendarCheck")} src={Icons.calendarCheck}/>
           Local Events
         </div>
         )

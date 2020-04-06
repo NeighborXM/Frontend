@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './TopRightControls.css';
 
 class TopRightControls extends Component {
     getChannelOptions() {

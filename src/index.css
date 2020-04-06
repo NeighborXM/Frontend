@@ -1,7 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+:root {
+  --control-text: #fff;
+  --control-outline: #000;
+  --dark-blue: #0d415f;
+  --light-blue: #1fa9c2;
+  --green: #A3CE58;
+  --yellow: #fa9f34;
+  --orange: #f76c47;
+  --red: #c22f1f;
+  --box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+}
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+body {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12,18 +28,20 @@ code {
     monospace;
 }
 
-#container {
-  width: 100%;
-  height: 100%;
-}
 #whitelabel {
   width: 100%;
-  height: 5%;
+  height: 7%;
+  display: flex;
+  align-items: center;
   background: var(--dark-blue);
-  padding: 2px;
+  padding: 20px;
   color: var(--control-text)
+}
+#whitelabel img {
+  height: 36px;
+  padding-right: 10px;
 }
 #map {
   width: 100%;
-  height: 95%;
+  height: 93%;
 }

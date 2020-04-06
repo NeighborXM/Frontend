@@ -1,0 +1,22 @@
+#topRightControls {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    border: 1px solid var(--control-outline);
+    display: flex;
+    flex-direction: row;
+    padding: 5px 5px;
+    background: var(--dark-blue);
+    color: var(--control-text);
+    border-radius: 10px;
+}
+#topRightControls select {
+    background: rgba(0, 0, 0, 0);
+    color: var(--control-text);
+    appearance: none;
+    border: none;
+    outline: none;
+  }
+#topRightControls option {
+    color: var(--control-text);
+    background: var(--dark-blue);
+}
