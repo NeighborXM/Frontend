@@ -116,10 +116,10 @@ class Map extends Component {
     })
   }
 
-  dropLogo(type, position) {
+  dropLogo(type) {
     this.pushMarker(
       {
-        position: position | this.radius.getCenter(),
+        position: this.radius.getCenter(),
         icon: type
       }
     );
