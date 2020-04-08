@@ -23,6 +23,7 @@ class Map extends Component {
   
   //#region Google Maps init
   async initMap() {
+    //Import mapTypes
     let mapTypes: any = require('../objects/mapTypes');
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -36,6 +37,17 @@ class Map extends Component {
         mapTypeIds: ['light',  'dark']
       },
     });
+
+    //Set map center based on user location
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude})
+    }, (err) => console.error(err));
+
+    //Watch user location and update circle placement if location changes.
+    navigator.geolocation.watchPosition((position) => {
+      this.onLocationChange(position.coords)
+    }, (err) => {console.error(err)});
+
     this.map.mapTypes.set('light',  mapTypes.warmMapType);
     this.map.mapTypes.set('dark', mapTypes.darkMapType);
     
@@ -50,10 +62,10 @@ class Map extends Component {
       radius: 1000,
     });
 
-    var listeningAreaRadius: HTMLInputElement = (document.getElementById("listeningAreaRadius") as HTMLInputElement);
-    listeningAreaRadius.value = this.radius.getRadius().toString();
+    (document.getElementById("listeningAreaRadius") as HTMLInputElement).value = 
+      this.radius.getRadius().toString();
 
-    //#region Push controls to map
+    //#region Push controls to edges of map
     var bottomControl: Element = document.getElementById('bottomControl');
     this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControl);
     
@@ -80,7 +92,7 @@ class Map extends Component {
     this.radius.setRadius(radius);
   }
   
-  changeTheme(theme) {
+  changeTheme(theme: string) {
     this.map.setMapTypeId(theme);
     let root = document.documentElement;
     switch(theme) {
@@ -113,7 +125,13 @@ class Map extends Component {
     //Show new markers
   }
 
-  dropLogo(type: string) {
+  onLocationChange(location: Coordinates) {
+    let coords: google.maps.LatLngLiteral = {lat: location.latitude, lng: location.longitude};
+    this.radius.setCenter(coords);
+    this.lastLocation = coords;
+  }
+
+  dropIconOntoMap(type: string) {
     this.pushMarker(
       {
         position: this.radius.getCenter(),
