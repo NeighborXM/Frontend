@@ -1,0 +1,8 @@
+{
+  "appId": "com.neighborxm.neighborxm",
+  "appName": "neighborxm",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
