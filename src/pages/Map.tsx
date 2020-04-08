@@ -107,7 +107,7 @@ class Map extends Component {
     return (
       <div>
         <header>
-          <img alt="logo" src="./saddleback-church.png"/>
+          <img alt="logo" src={`${process.env.PUBLIC_URL}/saddleback-church.png`}/>
           <strong>SADDLEBACK CHURCH</strong>
         </header>
         <div id="map"></div>
