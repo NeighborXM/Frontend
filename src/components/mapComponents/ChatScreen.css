@@ -11,8 +11,8 @@
   
 #chatScreenOverlay {
     padding: 10px;
-    color: var(--control-text);
-    background-color: var(--dark-blue);
+    color: var(--text);
+    background-color: var(--background);
     border-radius: 10px;
     border: 1px solid black;
     height: fit-content;

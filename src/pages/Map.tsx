@@ -12,13 +12,14 @@ import SettingsScreen from '../components/mapComponents/SettingsScreen';
 import User from '../classes/User';
 import Features from 'classes/Features';
 class Map extends Component {
-  map: google.maps.Map;
+  apiKey: string = 'AIzaSyALapSLwcFOvethKmU1BFyera1hAhaJ1Kc'
   channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
   currentChannel: number = 0;
+  currentUser: User;
   lastLocation: google.maps.LatLngLiteral = {lat: 33.749846, lng: -117.834180}
-  radius: google.maps.Circle;
+  map: google.maps.Map;
   mapScript: any;
-  apiKey: string = 'AIzaSyALapSLwcFOvethKmU1BFyera1hAhaJ1Kc'
+  radius: google.maps.Circle;
   
   //#region Google Maps init
   async initMap() {
@@ -37,20 +38,20 @@ class Map extends Component {
     });
     this.map.mapTypes.set('light',  mapTypes.warmMapType);
     this.map.mapTypes.set('dark', mapTypes.darkMapType);
-    this.map.addListener('maptypeid_changed', this.onMapTypeIdChanged)
     
     this.radius = new google.maps.Circle({
       strokeColor: '#000000',
-      strokeOpacity: 0.0,
-      strokeWeight: 2,
+      strokeOpacity: 0.5,
+      strokeWeight: 1,
       fillColor: '#000000',
       fillOpacity: 0.35,
       map: this.map,
       center: this.lastLocation,
       radius: 1000,
-      draggable: true,
-      editable: true
     });
+
+    var listeningAreaRadius: HTMLInputElement = (document.getElementById("listeningAreaRadius") as HTMLInputElement);
+    listeningAreaRadius.value = this.radius.getRadius().toString();
 
     //#region Push controls to map
     var bottomControl: Element = document.getElementById('bottomControl');
@@ -75,9 +76,26 @@ class Map extends Component {
   }
   //#endregion Google Maps init
   
+  setListeningRadius(radius: number) {
+    this.radius.setRadius(radius);
+  }
   
-  onMapTypeIdChanged() {
-    //Change theme
+  changeTheme(theme) {
+    this.map.setMapTypeId(theme);
+    let root = document.documentElement;
+    switch(theme) {
+      default:
+      case "light":
+        root.style.setProperty('--background','var(--lighttheme-background)');
+        root.style.setProperty('--text','var(--lighttheme-text)');
+        this.radius.setOptions({fillColor: "#000"});
+      break;
+      case "dark":
+        root.style.setProperty('--background','var(--darktheme-background)');
+        root.style.setProperty('--text','var(--darktheme-text)');
+        this.radius.setOptions({fillColor: "#fff"});
+      break;
+    }
   }
 
   pushMarker(features: Features) {
@@ -91,7 +109,8 @@ class Map extends Component {
   }
 
   onChannelSelectorChange() {
-
+    //Hide visible markers
+    //Show new markers
   }
 
   dropLogo(type: string) {
@@ -124,8 +143,9 @@ class Map extends Component {
     if(!this.mapScript) {
       this.initMap = this.initMap.bind(this);
       this.showMap = this.showMap.bind(this);
-      this.onMapTypeIdChanged = this.onMapTypeIdChanged.bind(this);
+      this.changeTheme = this.changeTheme.bind(this);
       this.showMap()
+      
     }
   }
 }

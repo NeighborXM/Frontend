@@ -1,15 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-:root {
-  --control-text: #fff;
-  --control-outline: #000;
-  --dark-blue: #0d415f;
-  --light-blue: #1fa9c2;
-  --green: #A3CE58;
-  --yellow: #fa9f34;
-  --orange: #f76c47;
-  --red: #c22f1f;
-  --box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
-}
+
 
 html, body {
   margin: 0;

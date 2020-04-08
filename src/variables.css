@@ -1,0 +1,19 @@
+:root {
+    --control-outline: #000;
+    --dark-blue: #0d415f;
+    --light-blue: #1fa9c2;
+    --green: #A3CE58;
+    --yellow: #fa9f34;
+    --orange: #f76c47;
+    --red: #c22f1f;
+    
+    --box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+    
+    --darktheme-background: #e6e6e6;
+    --darktheme-text: black;
+    --lighttheme-background: var(--dark-blue);
+    --lighttheme-text: white;
+    
+    --background: var(--lighttheme-background);
+    --text: var(--lighttheme-text);
+}

@@ -5,18 +5,18 @@
     display: flex;
     flex-direction: row;
     padding: 5px 5px;
-    background: var(--dark-blue);
-    color: var(--control-text);
+    background: var(--background);
+    color: var(--text);
     border-radius: 10px;
 }
 #channelSelectorControl select {
     background: rgba(0, 0, 0, 0);
-    color: var(--control-text);
+    color: var(--text);
     appearance: none;
     border: none;
     outline: none;
   }
 #channelSelectorControl option {
-    color: var(--control-text);
-    background: var(--dark-blue);
+    color: var(--text);
+    background: var(--background);
 }
