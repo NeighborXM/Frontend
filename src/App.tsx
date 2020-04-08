@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import Map from './pages/Map';
+import {Route, Switch} from 'react-router-dom';
 
 class App extends Component {
   render() {
-    return <Map/>
+    return (
+        <Switch>
+          <Route path='/' component={Map}/>
+        </Switch>
+      )
   }
 }
 
