@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Icons from '../../icons';
+import Icons from '../../../icons';
 import './AnnouncementsControl.css';
-import mapComponent from '../../pages/Map'
+import mapComponent from '../../../pages/Map'
 
 type Props = {
     mapComponent: mapComponent;

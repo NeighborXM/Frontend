@@ -1,14 +1,14 @@
 ///<reference types="@types/googlemaps"/>
 import React, {Component} from 'react';
 import './Map.css';
-import AlertsControl from '../components/controls/AlertsControl';
-import AnnouncementsControl from '../components/controls/AnnouncementsControl';
-import BottomControl from '../components/controls/BottomControl';
+import AlertsControl from '../components/mapComponents/controls/AlertsControl';
+import AnnouncementsControl from '../components/mapComponents/controls/AnnouncementsControl';
+import BottomControl from '../components/mapComponents/controls/BottomControl';
 import Channel from '../classes/Channel';
-import ChannelSelectorControl from '../components/controls/ChannelSelectorControl';
-import ChatScreen from '../components/ChatScreen';
+import ChannelSelectorControl from '../components/mapComponents/controls/ChannelSelectorControl';
+import ChatScreen from '../components/mapComponents/ChatScreen';
 import Icons from '../icons';
-import SettingsScreen from '../components/SettingsScreen';
+import SettingsScreen from '../components/mapComponents/SettingsScreen';
 import User from '../classes/User';
 import Features from 'classes/Features';
 class Map extends Component {
