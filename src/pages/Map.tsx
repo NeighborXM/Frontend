@@ -13,8 +13,8 @@ import User from '../classes/User';
 import Features from 'classes/Features';
 class Map extends Component {
   map: google.maps.Map;
-  channels: Channel[] = [new Channel('Saddleback Church'),new Channel('Public Channel')];
-  currentChannel: number  = 0;
+  channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
+  currentChannel: number = 0;
   lastLocation: google.maps.LatLngLiteral = {lat: 33.749846, lng: -117.834180}
   radius: google.maps.Circle;
   mapScript: any;
@@ -104,10 +104,6 @@ class Map extends Component {
   }
 
   render() {
-    this.initMap = this.initMap.bind(this);
-    this.showMap = this.showMap.bind(this);
-    this.onMapTypeIdChanged = this.onMapTypeIdChanged.bind(this);
-    if(!this.mapScript) this.showMap()
     return (
       <div>
         <header>
@@ -123,6 +119,14 @@ class Map extends Component {
         <SettingsScreen mapComponent={this}/>
       </div>
     );
+  }
+  componentDidMount() {
+    if(!this.mapScript) {
+      this.initMap = this.initMap.bind(this);
+      this.showMap = this.showMap.bind(this);
+      this.onMapTypeIdChanged = this.onMapTypeIdChanged.bind(this);
+      this.showMap()
+    }
   }
 }
 
