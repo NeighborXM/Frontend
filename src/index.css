@@ -28,19 +28,3 @@ code {
     monospace;
 }
 
-#whitelabel {
-  width: 100vw;
-  height: 7vh;
-  display: flex;
-  align-items: center;
-  background: var(--dark-blue);
-  color: var(--control-text);
-}
-#whitelabel img {
-  margin: 10px;
-  height: 5vh;
-}
-#map {
-  width: 100vw;
-  height: 93vh;
-}

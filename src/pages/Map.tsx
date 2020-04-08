@@ -1,14 +1,14 @@
 ///<reference types="@types/googlemaps"/>
 import React, {Component} from 'react';
 import './Map.css';
-import AlertsControl from './controls/AlertsControl';
-import AnnouncementsControl from './controls/AnnouncementsControl';
-import BottomControl from './controls/BottomControl';
+import AlertsControl from '../components/controls/AlertsControl';
+import AnnouncementsControl from '../components/controls/AnnouncementsControl';
+import BottomControl from '../components/controls/BottomControl';
 import Channel from '../classes/Channel';
-import ChannelSelectorControl from './controls/ChannelSelectorControl';
-import ChatScreen from './ChatScreen';
+import ChannelSelectorControl from '../components/controls/ChannelSelectorControl';
+import ChatScreen from '../components/ChatScreen';
 import Icons from '../icons';
-import SettingsScreen from './SettingsScreen';
+import SettingsScreen from '../components/SettingsScreen';
 import User from '../classes/User';
 import Features from 'classes/Features';
 class Map extends Component {
@@ -110,6 +110,11 @@ class Map extends Component {
     if(!this.mapScript) this.showMap()
     return (
       <div>
+        <header>
+          <img alt="logo" src="./saddleback-church.png"/>
+          <strong>SADDLEBACK CHURCH</strong>
+        </header>
+        <div id="map"></div>
         <AlertsControl mapComponent={this}/>
         <AnnouncementsControl mapComponent={this}/>
         <BottomControl mapComponent={this}/>

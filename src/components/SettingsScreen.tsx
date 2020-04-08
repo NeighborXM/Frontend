@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './SettingsScreen.css';
-import mapComponent from './Map'
+import mapComponent from '../pages/Map'
 
 type Props = {
     mapComponent: mapComponent;
