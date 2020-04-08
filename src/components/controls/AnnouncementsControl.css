@@ -1,4 +1,4 @@
-#rightControls {
+#announcementsControl {
   box-shadow: var(--box-shadow);
   border: 1px solid var(--control-outline);
   max-width: 8em;
@@ -12,10 +12,10 @@
   margin: 10px;
   text-align: center;
 }
-#rightControls * {
+#announcementsControl * {
     margin: 10px 0;
 }
-#rightControls img {
+#announcementsControl img {
     width: 36px !important;
     height: 36px;
 }

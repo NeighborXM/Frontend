@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import icons from '../../icons';
-import './LeftControls.css'
+import './AlertsControl.css'
+import mapComponent from '../Map'
 
-class LeftControls extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+class AlertsControl extends Component<Props> {
     render() {
         return (
-        <div id="leftControls">
+        <div id="alertsControl">
           Click an icon to drop it on the map.<br/>
           <img alt="I'm okay" id="circleIcon" onClick={() => this.props.mapComponent.dropLogo("circle")} src={icons.circle}/>
           I'm ok
@@ -20,4 +24,4 @@ class LeftControls extends Component {
     }
 }
 
-export default LeftControls;
+export default AlertsControl;

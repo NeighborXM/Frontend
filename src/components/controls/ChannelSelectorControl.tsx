@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
-import './TopRightControls.css';
+import './ChannelSelectorControl.css';
+import mapComponent from '../Map'
 
-class TopRightControls extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+class ChannelSelectorControl extends Component<Props> {
     getChannelOptions() {
         let output = [];
         this.props.mapComponent.channels.forEach((channel, i) => output.push(<option key={i}>{channel.name}</option>))
@@ -10,8 +14,8 @@ class TopRightControls extends Component {
 
     render() {
         return (
-        <div id="topRightControls">
-          <select onChange={this.onChannelSelectorChange} id="channelSelector">
+        <div id="channelSelectorControl">
+          <select id="channelSelector">
             {this.getChannelOptions()}
           </select>
         </div>
@@ -19,4 +23,4 @@ class TopRightControls extends Component {
     }
 }
 
-export default TopRightControls;
+export default ChannelSelectorControl;

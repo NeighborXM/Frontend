@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import './ChatScreen.css';
+import mapComponent from './Map'
 
-class ChatScreen extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+class ChatScreen extends Component<Props> {
 
-    doHide = true;
+    doHide: boolean = true;
     hide() {
         if(this.doHide)
         document.getElementById("chatScreen").style.display = "none";

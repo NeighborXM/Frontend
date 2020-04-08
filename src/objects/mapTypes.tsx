@@ -1,5 +1,7 @@
+///<reference types="@types/googlemaps"/>
+//@ts-ignore
 module.exports = {
-    warmMapType: new window.google.maps.StyledMapType(
+    warmMapType: new google.maps.StyledMapType(
         [
             {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
@@ -98,7 +100,7 @@ module.exports = {
             ]
             }
         ], {name: 'Warm'}),
-    lightMapType: new window.google.maps.StyledMapType([
+    lightMapType: new google.maps.StyledMapType([
         {
             featureType: "poi",
             stylers: [
@@ -108,7 +110,7 @@ module.exports = {
             ]
         }
         ], {name: 'Light'}),
-        darkMapType: new window.google.maps.StyledMapType(
+        darkMapType: new google.maps.StyledMapType(
         [
             {
             "elementType": "geometry",

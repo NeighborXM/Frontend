@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import Icons from '../../icons';
-import './RightControls.css';
+import './AnnouncementsControl.css';
+import mapComponent from '../Map'
 
-class RightControls extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+class AnnouncementsControl extends Component<Props> {
     render() {
         return (
-        <div id="rightControls">
+        <div id="announcementsControl">
           Click an icon to drop it on the map.<br/>
           <img alt="Medical updates" onClick={() => this.props.mapComponent.dropLogo("handHoldingMedical")} src={Icons.handHoldingMedical}/>
           Medical Updates
@@ -18,4 +22,4 @@ class RightControls extends Component {
     }
 }
 
-export default RightControls;
+export default AnnouncementsControl;

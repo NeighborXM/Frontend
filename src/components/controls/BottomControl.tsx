@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import icons from '../../icons';
-import './BottomControls.css';
+import './BottomControl.css';
+import mapComponent from '../Map'
 
-class BottomControls extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+
+class BottomControl extends Component<Props> {
     onMicButtonClick() {
-        var img = document.querySelector('#micButton img');
+        var img: HTMLImageElement = document.querySelector('#micButton img');
         img.src = img.className==="micOff" ? icons.micOn : icons.micOff;
         img.className = img.className==="micOff" ?  "micOn":"micOff";
     }
@@ -19,7 +24,7 @@ class BottomControls extends Component {
         this.onSettingsButtonClick = this.onSettingsButtonClick.bind(this);
         this.onChatButtonClick = this.onChatButtonClick.bind(this);
         return(
-        <div id="bottomControls">
+        <div id="bottomControl">
           <div id="chatButton" className="bottomControlIcon" onClick={this.onChatButtonClick}>
             <img alt="Chat" src={icons.commentDots}/>
           </div>
@@ -34,4 +39,4 @@ class BottomControls extends Component {
     }
 }
 
-export default BottomControls;
+export default BottomControl;

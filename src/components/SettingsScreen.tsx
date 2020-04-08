@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import './SettingsScreen.css';
+import mapComponent from './Map'
 
-class SettingsScreen extends Component {
+type Props = {
+    mapComponent: mapComponent;
+}
+class SettingsScreen extends Component<Props> {
 
-    doHide = true;
+    doHide: boolean = true;
     hide() {
         if(this.doHide)
         document.getElementById("settingsScreen").style.display = "none";
     }
-    changeMapTheme(theme) {
+    changeMapTheme(theme: string) {
         this.props.mapComponent.map.setMapTypeId(theme);
     }
     render() {
