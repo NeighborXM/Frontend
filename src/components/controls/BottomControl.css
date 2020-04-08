@@ -8,12 +8,13 @@
     align-items: center;
 }
 #bottomControl div {
-    padding: 10px;
+    padding: 5px 10px;
 }
 .bottomControlIcon img {
     width: 48px;
     height: 48px;
-    margin: 10px;
+    margin: 0px 10px;
+    margin-top: 10px;
 }
 .bottomControlIcon {
     font-size: 48px;
