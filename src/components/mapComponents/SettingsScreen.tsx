@@ -28,7 +28,7 @@ class SettingsScreen extends Component<Props> {
                     <div style={{width: "100%", textAlign: "center"}}><h1>Settings</h1></div>
                     <button onClick={() => this.changeTheme('light')}>Light Theme</button>
                     <button onClick={() => this.changeTheme('dark')}>Dark Theme</button>
-                    <br/>Listening distance: <input onChange={this.changeListeningAreaRadius} id="listeningAreaRadius" type="number"/> meters.
+                    <br/>Listening distance: <input step="100" onChange={this.changeListeningAreaRadius} id="listeningAreaRadius" type="number"/> meters.
                 </div>
             </div>
         )
