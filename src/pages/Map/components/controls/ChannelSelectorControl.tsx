@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './ChannelSelectorControl.css';
-import mapComponent from '../../../pages/Map'
+import mapComponent from '../../../Map'
 
 type Props = {
     mapComponent: mapComponent;

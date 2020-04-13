@@ -1,16 +1,16 @@
 ///<reference types="@types/googlemaps"/>
 import React, {Component} from 'react';
-import './Map.css';
-import AlertsControl from '../components/mapComponents/controls/AlertsControl';
-import AnnouncementsControl from '../components/mapComponents/controls/AnnouncementsControl';
-import BottomControl from '../components/mapComponents/controls/BottomControl';
-import Channel from '../classes/Channel';
-import ChannelSelectorControl from '../components/mapComponents/controls/ChannelSelectorControl';
-import ChatScreen from '../components/mapComponents/ChatScreen';
-import Icons from '../icons';
-import SettingsScreen from '../components/mapComponents/SettingsScreen';
-import User from '../classes/User';
-import Features from 'classes/Features';
+import './Map/Map.css';
+import AlertsControl from './Map/components/controls/AlertsControl';
+import AnnouncementsControl from './Map/components/controls/AnnouncementsControl';
+import BottomControl from './Map/components/controls/BottomControl';
+import Channel from './Map/classes/Channel';
+import ChannelSelectorControl from './Map/components/controls/ChannelSelectorControl';
+import ChatScreen from './Map/components/ChatScreen';
+import Icons from './Map/icons';
+import SettingsScreen from './Map/components/SettingsScreen';
+import User from './Map/classes/User';
+import Features from 'pages/Map/classes/Features';
 class Map extends Component {
   apiKey: string = 'AIzaSyALapSLwcFOvethKmU1BFyera1hAhaJ1Kc'
   channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
@@ -24,7 +24,7 @@ class Map extends Component {
   //#region Google Maps init
   async initMap() {
     //Import mapTypes
-    let mapTypes: any = require('../objects/mapTypes');
+    let mapTypes: any = require('./Map/objects/mapTypes');
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: this.lastLocation,
