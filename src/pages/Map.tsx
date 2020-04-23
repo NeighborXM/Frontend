@@ -1,4 +1,3 @@
-///<reference types="@types/googlemaps"/>
 import React, {Component} from 'react';
 import './Map/Map.css';
 import AlertsControl from './Map/components/controls/AlertsControl';
@@ -12,7 +11,7 @@ import SettingsScreen from './Map/components/SettingsScreen';
 import User from './Map/classes/User';
 import Features from 'pages/Map/classes/Features';
 class Map extends Component {
-  apiKey: string = 'AIzaSyALapSLwcFOvethKmU1BFyera1hAhaJ1Kc'
+  apiKey: string = 'AIzaSyCmPlt5h88EltiYUh0SLMIMapHBhwDv_2M'
   channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
   currentChannel: number = 0;
   currentUser: User;
@@ -64,27 +63,27 @@ class Map extends Component {
 
     (document.getElementById("listeningAreaRadius") as HTMLInputElement).value = 
       this.radius.getRadius().toString();
-
-    //#region Push controls to edges of map
-    var bottomControl: Element = document.getElementById('bottomControl');
-    this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControl);
+      
+      //#region Push controls to edges of map
+      var bottomControl: Element = document.getElementById('bottomControl');
+      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControl);
+      
+      var channelSelectorControl: Element = document.getElementById('channelSelectorControl');
+      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(channelSelectorControl);
+      
+      var alertControls: Element = document.getElementById('alertsControl');
+      this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(alertControls);
+      
+      var announcementsControl: Element = document.getElementById('announcementsControl');
+      this.map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(announcementsControl);
+      //#endregion
+    }
     
-    var channelSelectorControl: Element = document.getElementById('channelSelectorControl');
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(channelSelectorControl);
-    
-    var alertControls: Element = document.getElementById('alertsControl');
-    this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(alertControls);
-    
-    var announcementsControl: Element = document.getElementById('announcementsControl');
-    this.map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(announcementsControl);
-    //#endregion
-  }
-  
-  showMap() {
-    window['initMap'] = this.initMap.bind(this);
-    this.mapScript = document.createElement('script')
-    this.mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`
-    document.body.append(this.mapScript);
+    showMap() {
+      window['initMap'] = this.initMap.bind(this);
+      this.mapScript = document.createElement('script')
+      this.mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`
+      document.body.append(this.mapScript);
   }
   //#endregion Google Maps init
   

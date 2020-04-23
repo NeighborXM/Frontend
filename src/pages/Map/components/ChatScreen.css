@@ -1,19 +1,32 @@
 #chatScreen {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
   
 #chatScreenOverlay {
-    padding: 10px;
-    color: var(--text);
-    background-color: var(--background);
-    border-radius: 10px;
-    border: 1px solid black;
-    height: fit-content;
-  }
+  padding: 10px;
+  width: 90vw;
+  max-width: 800px;
+  color: var(--text);
+  background-color: var(--background);
+  border-radius: 10px;
+  border: 1px solid black;
+  height: fit-content;
+}
+
+#chatMessages {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+  margin: 0 auto;
+}

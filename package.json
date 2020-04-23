@@ -1,13 +1,9 @@
 {
   "name": "desktop-frontend",
-  "homepage": "https://www.neighborxm.com/",
+  "homepage": "https://www.neighborxm.com/map",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^2.0.0",
-    "@capacitor/cli": "^2.0.0",
-    "@capacitor/core": "^2.0.0",
-    "@capacitor/ios": "^2.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",

@@ -9,7 +9,8 @@
     "target": "es2015",
     "jsx": "react",
     "types": [
-      "react"
+      "react",
+      "googlemaps"
     ],
     "module": "esNext",
     "moduleResolution": "node",

@@ -25,7 +25,7 @@ class SettingsScreen extends Component<Props> {
         return (
             <div id="settingsScreen" onClick={this.hide}>
                 <div id="settingsScreenOverlay" onMouseEnter={() => this.doHide = false} onMouseLeave={() => this.doHide = true}>
-                    <div style={{width: "100%", textAlign: "center"}}><h1>Settings</h1></div>
+                    <h1 style={{textAlign: "center"}}>Settings</h1>
                     <button onClick={() => this.changeTheme('light')}>Light Theme</button>
                     <button onClick={() => this.changeTheme('dark')}>Dark Theme</button>
                     <br/>Listening distance: <input step="100" onChange={this.changeListeningAreaRadius} id="listeningAreaRadius" type="number"/> meters.
