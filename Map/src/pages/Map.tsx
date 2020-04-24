@@ -11,7 +11,7 @@ import SettingsScreen from './Map/components/SettingsScreen';
 import User from './Map/classes/User';
 import Features from 'pages/Map/classes/Features';
 class Map extends Component {
-  apiKey: string = 'AIzaSyCmPlt5h88EltiYUh0SLMIMapHBhwDv_2M'
+  apiKey: string = "AIzaSyCmPlt5h88EltiYUh0SLMIMapHBhwDv_2M"
   channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
   currentChannel: number = 0;
   currentUser: User;
