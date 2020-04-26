@@ -10,6 +10,8 @@ import Icons from './Map/icons';
 import SettingsScreen from './Map/components/SettingsScreen';
 import User from './Map/classes/User';
 import Features from 'pages/Map/classes/Features';
+import Forms from './Map/objects/forms';
+
 class Map extends Component {
   apiKey: string = "AIzaSyCmPlt5h88EltiYUh0SLMIMapHBhwDv_2M"
   channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
@@ -71,8 +73,8 @@ class Map extends Component {
       var channelSelectorControl: Element = document.getElementById('channelSelectorControl');
       this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(channelSelectorControl);
       
-      var alertControls: Element = document.getElementById('alertsControl');
-      this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(alertControls);
+      // var alertControls: Element = document.getElementById('alertsControl');
+      // this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(alertControls);
       
       var announcementsControl: Element = document.getElementById('announcementsControl');
       this.map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(announcementsControl);
@@ -110,13 +112,45 @@ class Map extends Component {
   }
 
   pushMarker(features: Features) {
+      //parse icon
+      let icon;
+      switch(features.type) {
+        case "medicalUpdate": icon="handHoldingMedical"; break;
+        case "localAnnouncement": icon="bullhorn"; break;
+        case "localEvent": icon="calendarCheck"; break;
+        case "askForHelp": icon="exclamationCircle"; break;
+        default: icon="exclamationCircle"; break;
+      }
+      //parse form type
+      let form;
+      switch(features.type) {
+        case "medicalUpdate": form="medicalUpdateForm"; break;
+        case "localAnnouncement": form="localAnnouncementForm"; break;
+        case "localEvent": form="localEventForm"; break;
+        case "askForHelp": form="askForHelpForm"; break;
+        default: form="askForHelpForm"; break;
+      }
+      //create marker
       let user: User = new User();
       user.marker = new google.maps.Marker({
         position: features.position,
-        icon: Icons[features.icon],
-        map: this.map
+        icon: Icons[icon],
+        map: this.map,
+        draggable: true
       });
+
       this.channels[this.currentChannel].users.push(user)
+
+      //create infoWindow
+      var infowindow = new google.maps.InfoWindow({
+        content: Forms[form],
+        zIndex: 1000
+      });
+      //bring map into scope
+      let map = user.marker.getMap();
+      user.marker.addListener('click', function() {
+        infowindow.open(map, user.marker);
+      });
   }
 
   onChannelSelectorChange() {
@@ -134,7 +168,7 @@ class Map extends Component {
     this.pushMarker(
       {
         position: this.radius.getCenter(),
-        icon: type
+        type: type
       }
     );
   }
@@ -147,7 +181,7 @@ class Map extends Component {
           <strong>SADDLEBACK CHURCH</strong>
         </header>
         <div id="map"></div>
-        <AlertsControl mapComponent={this}/>
+        {/* <AlertsControl mapComponent={this}/> */}
         <AnnouncementsControl mapComponent={this}/>
         <BottomControl mapComponent={this}/>
         <ChannelSelectorControl mapComponent={this}/>
