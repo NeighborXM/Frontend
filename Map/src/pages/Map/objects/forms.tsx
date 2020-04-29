@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 let askForHelpForm = 
-        <form id="askForHelpForm" className="container" method="POST" target="_blank" action="http://www.neighborxm.com/api/request">
+        <form id="askForHelpForm" method="POST" target="_blank" action="http://www.neighborxm.com/api/request">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous"/>
             <h2 style={{textAlign: "center"}}>Ask for help</h2>
             <div className="row">
@@ -30,7 +30,7 @@ let askForHelpForm =
                     <label htmlFor="requestType">Request Type</label><br/>
                     <span className="text-danger ml-auto">DISCLAIMER: For any emergency medical needs, please call 911.</span>
                     <select className="form-control" id="requestType">
-                        <option value="Food Assistance">Food Assistance</option>
+                        <option value="Food Bank Assistance">Food Bank Assistance</option>
                         <option value="Emergency Assistance">Emergency Assistance</option>
                         <option value="Mental Health">Mental Health</option>
                         <option value="Pastoral Care">Pastoral Care</option>

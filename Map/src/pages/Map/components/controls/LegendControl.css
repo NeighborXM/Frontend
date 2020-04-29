@@ -1,21 +1,22 @@
-#announcementsControl {
+#legendControl {
   box-shadow: var(--box-shadow);
   border: 1px solid var(--control-outline);
-  max-width: 8em;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: var(--background);
   color: var(--text);
-  border-radius: 10px; 
-  padding: 5px;
-  margin: 10px;
+  border-radius: 50px; 
+  padding: 20px;
+  margin: 10px 0px;
   text-align: center;
 }
-#announcementsControl * {
-    margin: 10px 0;
+#legendControl img {
+  margin: 5px;
+  width: 36px !important;
+  height: 36px;
 }
-#announcementsControl img {
-    width: 36px !important;
-    height: 36px;
+.legend {
+  display: flex;
+  flex-direction: row;
 }

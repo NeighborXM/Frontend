@@ -1,16 +1,36 @@
 header {
     width: 100vw;
     height: 7vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     background: var(--background);
     color: var(--text);
+    cursor: pointer;
 }
-header img {
+header a, header a:hover {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    font-size: 2vh;
+}
+header .logo {
     margin: 10px;
     height: 5vh;
 }
+header .bars {
+    position: fixed;
+    top: 2vh;
+    right: 0;
+    margin-right: 10px;
+    margin-left: auto;
+    height: 3vh
+}
 #map {
     width: 100vw;
-    height: 93vh;
+    height: 100vh;
 }

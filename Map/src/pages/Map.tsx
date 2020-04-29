@@ -1,34 +1,25 @@
 import React, {Component} from 'react';
 import './Map/Map.css';
-import AlertsControl from './Map/components/controls/AlertsControl';
-import AnnouncementsControl from './Map/components/controls/AnnouncementsControl';
-import BottomControl from './Map/components/controls/BottomControl';
-import Channel from './Map/classes/Channel';
-import ChannelSelectorControl from './Map/components/controls/ChannelSelectorControl';
-import ChatScreen from './Map/components/ChatScreen';
+import LegendControl from './Map/components/controls/LegendControl';
 import Icons from './Map/icons';
 import SettingsScreen from './Map/components/SettingsScreen';
-import User from './Map/classes/User';
 import Features from 'pages/Map/classes/Features';
 import Forms from './Map/objects/forms';
 
 class Map extends Component {
   apiKey: string = "AIzaSyCmPlt5h88EltiYUh0SLMIMapHBhwDv_2M"
-  channels: Channel[] = [new Channel('Saddleback Church'), new Channel('Public Channel')];
-  currentChannel: number = 0;
-  currentUser: User;
-  lastLocation: google.maps.LatLngLiteral = {lat: 33.749846, lng: -117.834180}
+  markers: google.maps.Marker[] = [];
+  location: google.maps.LatLngLiteral = {lat: 33.6580789, lng: -117.8358518}
   map: google.maps.Map;
   mapScript: any;
-  radius: google.maps.Circle;
-  
+
   //#region Google Maps init
   async initMap() {
-    //Import mapTypes
+    //import mapTypes
     let mapTypes: any = require('./Map/objects/mapTypes');
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
-      center: this.lastLocation,
+      center: this.location,
       mapTypeId: 'light',
       disableDefaultUI: true,
       zoomControl: true,
@@ -39,59 +30,31 @@ class Map extends Component {
       },
     });
 
-    //Set map center based on user location
+    //set map center based on user location
     navigator.geolocation.getCurrentPosition((position) => {
-      this.map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude})
+      this.location = {lat: position.coords.latitude, lng: position.coords.longitude};
+      this.map.setCenter(this.location);
     }, (err) => console.error(err));
 
-    //Watch user location and update circle placement if location changes.
-    navigator.geolocation.watchPosition((position) => {
-      this.onLocationChange(position.coords)
-    }, (err) => {console.error(err)});
 
+    //load map types
     this.map.mapTypes.set('light',  mapTypes.warmMapType);
     this.map.mapTypes.set('dark', mapTypes.darkMapType);
     
-    this.radius = new google.maps.Circle({
-      strokeColor: '#000000',
-      strokeOpacity: 0.5,
-      strokeWeight: 1,
-      fillColor: '#000000',
-      fillOpacity: 0.35,
-      map: this.map,
-      center: this.lastLocation,
-      radius: 1000,
-    });
+    var legendControl: Element = document.getElementById('legendControl');
+    this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legendControl);
 
-    (document.getElementById("listeningAreaRadius") as HTMLInputElement).value = 
-      this.radius.getRadius().toString();
-      
-      //#region Push controls to edges of map
-      var bottomControl: Element = document.getElementById('bottomControl');
-      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(bottomControl);
-      
-      var channelSelectorControl: Element = document.getElementById('channelSelectorControl');
-      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(channelSelectorControl);
-      
-      // var alertControls: Element = document.getElementById('alertsControl');
-      // this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(alertControls);
-      
-      var announcementsControl: Element = document.getElementById('announcementsControl');
-      this.map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(announcementsControl);
-      //#endregion
-    }
+    var poweredBy: Element = document.getElementById('poweredBy');
+    this.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(poweredBy);
+  }
     
-    showMap() {
-      window['initMap'] = this.initMap.bind(this);
-      this.mapScript = document.createElement('script')
-      this.mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`
-      document.body.append(this.mapScript);
+  showMap() {
+    window['initMap'] = this.initMap.bind(this);
+    this.mapScript = document.createElement('script')
+    this.mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`
+    document.body.append(this.mapScript);
   }
   //#endregion Google Maps init
-  
-  setListeningRadius(radius: number) {
-    this.radius.setRadius(radius);
-  }
   
   changeTheme(theme: string) {
     this.map.setMapTypeId(theme);
@@ -101,13 +64,13 @@ class Map extends Component {
       case "light":
         root.style.setProperty('--background','var(--lighttheme-background)');
         root.style.setProperty('--text','var(--lighttheme-text)');
-        this.radius.setOptions({fillColor: "#000"});
       break;
+      /*
       case "dark":
         root.style.setProperty('--background','var(--darktheme-background)');
         root.style.setProperty('--text','var(--darktheme-text)');
-        this.radius.setOptions({fillColor: "#fff"});
       break;
+      */
     }
   }
 
@@ -130,16 +93,24 @@ class Map extends Component {
         case "askForHelp": form="askForHelpForm"; break;
         default: form="askForHelpForm"; break;
       }
+      //parse title
+      let title;
+      switch(features.type) {
+        case "medicalUpdate": title="Medical Update"; break;
+        case "localAnnouncement": title="Local Announcement"; break;
+        case "localEvent": title="Local Event"; break;
+        case "askForHelp": title="Request for Help"; break;
+        default: title="Request for help"; break;
+      }
       //create marker
-      let user: User = new User();
-      user.marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         position: features.position,
         icon: Icons[icon],
         map: this.map,
         draggable: true
       });
 
-      this.channels[this.currentChannel].users.push(user)
+      this.markers.push(marker)
 
       //create infoWindow
       var infowindow = new google.maps.InfoWindow({
@@ -147,27 +118,18 @@ class Map extends Component {
         zIndex: 1000
       });
       //bring map into scope
-      let map = user.marker.getMap();
-      user.marker.addListener('click', function() {
-        infowindow.open(map, user.marker);
+      let map = marker.getMap();
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
       });
-  }
-
-  onChannelSelectorChange() {
-    //Hide visible markers
-    //Show new markers
-  }
-
-  onLocationChange(location: Coordinates) {
-    let coords: google.maps.LatLngLiteral = {lat: location.latitude, lng: location.longitude};
-    this.radius.setCenter(coords);
-    this.lastLocation = coords;
+      marker.setTitle(title)
+      infowindow.open(map, marker);
   }
 
   dropIconOntoMap(type: string) {
     this.pushMarker(
       {
-        position: this.radius.getCenter(),
+        position: this.location,
         type: type
       }
     );
@@ -177,16 +139,18 @@ class Map extends Component {
     return (
       <div>
         <header>
-          <img alt="logo" src={`${process.env.PUBLIC_URL}/saddleback-church.png`}/>
-          <strong>SADDLEBACK CHURCH</strong>
+          <a href="/">
+            <img className="logo" alt="logo" src={`${process.env.PUBLIC_URL}/saddleback-church.png`}/>
+            <strong>SADDLEBACK CHURCH</strong>
+          </a>
+          <img className="bars" src={Icons.bars} onClick={() => document.getElementById("settingsScreen").style.display = "flex"}/>
         </header>
         <div id="map"></div>
-        {/* <AlertsControl mapComponent={this}/> */}
-        <AnnouncementsControl mapComponent={this}/>
-        <BottomControl mapComponent={this}/>
-        <ChannelSelectorControl mapComponent={this}/>
-        <ChatScreen mapComponent={this}/>
         <SettingsScreen mapComponent={this}/>
+        <LegendControl mapComponent={this}/>
+        <div id="poweredBy">
+          Powered by NeighborXM
+        </div>
       </div>
     );
   }

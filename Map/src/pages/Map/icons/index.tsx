@@ -1,3 +1,4 @@
+import bars from './bars.svg'
 import broadcasting from './user_broadcasting.svg';
 import bullhorn from './bullhorn.svg';
 import calendarCheck from './calendar-check.svg';
@@ -14,6 +15,7 @@ import silent from './user_silent.svg';
 
 
 export default {
+    bars: bars,
     broadcasting: broadcasting,
     bullhorn: bullhorn,
     calendarCheck: calendarCheck,
